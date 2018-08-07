@@ -1,29 +1,4 @@
-#!/bin/bash
 
-#git action
-
-#安装git工具（install git tool）
-yum install -y git
-
-git init /data
-
-git add file
-
-git commit -m".."
-
-git config --global user.email "admin@example.com"
-git config --global user.naem "admin"
-
-git remote add origin https://github.com/GZ-Alinx/automation
-
-move github:
-git remote rm origin https://github.com/GZ-Alinx/automation
-
-git push -u origin master And  git push origin master
-
-
-
-End
 #!/bin/bash
 
 #git action
