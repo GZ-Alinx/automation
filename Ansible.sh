@@ -1,7 +1,3 @@
-
-#Ansible Centos7.2环境 安装文档 
-
-
 #!/bin/bash
 
 #source /etc/profile	
