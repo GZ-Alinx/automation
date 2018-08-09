@@ -1,0 +1,82 @@
+
+Jenkins搭建
+
+	Jenkins 官方站点:   https://jenkins.io/
+
+1、介绍：
+
+		Jenkins是一个独立的开源自动化服务器，可用于自动执行与构建，测试，交付或部署软件相关的各种任务。Jenkins可以通过本机系统软件包，Docker安装，甚至可以由安装了Java Runtime Environment（JRE）的任何机器独立运行。	
+
+	先决条件，您将需要：
+	一台机器：
+		256 MB的RAM，但推荐超过512 MB
+		10 GB的驱动器空间（适用于Jenkins和Docker镜像）
+
+	安装了以下软件：
+		Java 8（JRE或Java开发工具包（JDK）很好）
+		Docker（导航到网站顶部的获取Docker以访问适合您平台的Docker下载）
+
+	下载并运行Jenkins
+		在下载目录中打开终端。
+		运行：java -jar jenkins.war --httpPort=8080。
+
+	浏览到http://localhost:8080。
+	安装完成后，您就可以开始使用Jenkins了！
+
+
+2、安装：
+	
+	2.1选择通用源码包
+		wget http://mirrors.jenkins.io/war-stable/latest/jenkins.war
+		看习惯下载相对应的包
+
+	2.2配置java环境：
+		JDK下载地址：http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html
+	
+		wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/	jdk/8u141-b15/336fa29ff2bb4ef291e347e091f7f4a7/jdk-8u141-linux-x64.tar.gz"
+
+		tar xzf jdk-8u141-linux-x64.tar.gz -C /usr/local/
+			export JAVA_HOME=/usr/local/jdk1.8.0_151
+			export JRE_HOME=${JAVA_HOME}/jre
+			export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+			export PATH=${JAVA_HOME}/bin:$PATH
+
+		source /etc/profile
+		java -version
+
+	2.3启动	
+	java -jar jenkins.war --httpPort=8888 & 
+	浏览到http://localhost:8888
+
+	首次安装进入jenkins有一个默认密码
+	cat /root/.jenkins/secrets/initialAdminPassword
+	默认安装插件等。。。
+
+	2.4服务器与Jenkins做好免密码登录
+
+	生成密钥并发送到目标服务器
+		ssh-keygen -t rsa
+		ssh-copy-id -i /home/deploy/.ssh/id_rsa.pub root@103.45.15.135
+
+		
+	2.5安装rsync同步工具
+
+		yum list |grep telnet
+		yum install telnet-server.x86_64 -y
+		yum install telnet.x86_64 -y
+		yum list |grep xinetd 
+		yum install xinetd.x86_64 -y
+		systemctl enable xinetd.service
+		systemctl enable telnet.socket
+		systemctl start telnet.socket
+		systemctl start xinetd
+		systemctl start rsyncd.service
+		systemctl start rsyncd.service
+
+	安装插件
+	Maven Integration
+	SSH
+	Git
+
+	对接git是如果出现对接不上，那就是git插件问题或者是本地git工具，可以重新安装或者更新下即可完成，这里全部建议使用https的方式来对接git
+	
