@@ -78,5 +78,17 @@ Jenkins搭建
 	SSH
 	Git
 
+
+
+配置好了git仓库，在拉取的过程中出现maven仓库依赖问题
+
+后面找开发要到了依赖包，并安装到maven本地仓库：
+mvn install:install-file -DgroupId=com.alipay -DartifactId=sdk-java -Dversion=20180104135026 -Dpackaging=jar -Dfile=alipay-sdk-java20180104135026.jar
+
+成功解决依赖问题！
+
+
+博客文：https://www.cnblogs.com/fxwl/p/7886761.html
+
 	对接git是如果出现对接不上，那就是git插件问题或者是本地git工具，可以重新安装或者更新下即可完成，这里全部建议使用https的方式来对接git
 	
